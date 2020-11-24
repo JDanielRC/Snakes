@@ -1,0 +1,6 @@
+
+include ../../common.mk
+
+run:
+	go get -v github.com/hajimehoshi/ebiten
+	go run snake.go
