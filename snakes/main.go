@@ -8,7 +8,11 @@ import (
 	"github.com/hajimehoshi/ebiten"
 )
 
-var gui elements.GUI
+var game elements.Game
+
+func init() {
+	game = elements.Start()
+}
 
 // Game implements ebiten.Game interface.
 type Game struct{}
@@ -16,14 +20,16 @@ type Game struct{}
 // Update proceeds the game state.
 // Update is called every tick (1/60 [s] by default).
 func (g *Game) Update(screen *ebiten.Image) error {
-	// Write your game's logical update.
+	if err := game.Update(); err != nil {
+		return err
+	}
 	return nil
 }
 
 // Draw draws the game screen.
 // Draw is called every frame (typically 1/60[s] for 60Hz display).
 func (g *Game) Draw(screen *ebiten.Image) {
-	if err := gui.Draw(screen); err != nil {
+	if err := game.Draw(screen); err != nil {
 		fmt.Println(err)
 	}
 }
