@@ -25,10 +25,14 @@ func initializeGUI() *GUI {
 	return &gui
 }
 
+func (gui *GUI) ateFood() {
+	gui.score++
+}
+
 // Draw GUI
-func (g *GUI) Draw(screen *ebiten.Image) error {
-	text.Draw(screen, "Current Score: "+strconv.Itoa(g.score), inconsolata.Bold8x16, 90, 20, color.Black)
-	text.Draw(screen, "Remaining Health: "+strconv.Itoa(g.mainSnakeHealth), inconsolata.Bold8x16, 410, 20, color.Black)
-	text.Draw(screen, "Remaining enemies: "+strconv.Itoa(g.remainingEnemies), inconsolata.Bold8x16, 780, 20, color.Black)
+func (gui *GUI) Draw(screen *ebiten.Image) error {
+	text.Draw(screen, "Current Score: "+strconv.Itoa(gui.score), inconsolata.Bold8x16, 90, 20, color.Black)
+	text.Draw(screen, "Remaining Health: "+strconv.Itoa(gui.mainSnakeHealth), inconsolata.Bold8x16, 410, 20, color.Black)
+	text.Draw(screen, "Remaining enemies: "+strconv.Itoa(gui.remainingEnemies), inconsolata.Bold8x16, 780, 20, color.Black)
 	return nil
 }

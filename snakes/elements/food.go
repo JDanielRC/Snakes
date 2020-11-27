@@ -25,8 +25,8 @@ type Food struct {
 func RandomFood(game *Game) *Food {
 	food := Food{
 		game:   game,
-		xLimit: 54,
-		yLimit: 35,
+		xLimit: 53,
+		yLimit: 30,
 		active: true,
 	}
 	s1 := rand.NewSource(time.Now().UnixNano())
@@ -50,8 +50,8 @@ func RandomFood(game *Game) *Food {
 		itemFood, _, _ := ebitenutil.NewImageFromFile("files/hamburger2.png", ebiten.FilterDefault)
 		food.image = *itemFood
 	}
-	food.foodX = float64(r1.Intn(food.xLimit)*19 + 20)
-	food.foodY = float64(r1.Intn(food.yLimit)*17 + 120)
+	food.foodX = float64(r1.Intn(food.xLimit)*20 + 20)
+	food.foodY = float64(r1.Intn(food.yLimit)*20 + 120)
 	fmt.Printf("valor en x: %f valor en y: %f \n", food.foodX, food.foodY)
 	return &food
 }
