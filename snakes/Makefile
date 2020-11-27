@@ -3,4 +3,4 @@ include ../../common.mk
 
 run:
 	go get -v github.com/hajimehoshi/ebiten
-	go run main.go
+	go run main.go 20 3

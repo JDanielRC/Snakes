@@ -4,6 +4,8 @@ import (
 	"elements/elements"
 	"fmt"
 	"log"
+	"os"
+	"strconv"
 
 	"github.com/hajimehoshi/ebiten"
 )
@@ -11,7 +13,22 @@ import (
 var game elements.Game
 
 func init() {
-	game = elements.Start()
+	if len(os.Args) != 3 {
+		fmt.Printf("Incorrect arguments, first argument takes number of food and second one number of enemies \n")
+		os.Exit(1)
+	}
+	foods, err := strconv.Atoi(os.Args[1])
+	if err != nil {
+		fmt.Printf("Incorret argument %s for number of foods, try with a number. \n", os.Args[1])
+		os.Exit(1)
+	}
+	enemies, err2 := strconv.Atoi(os.Args[2])
+	if err2 != nil {
+		fmt.Printf("Incorret argument %s for number of enemies, try with a number. \n", os.Args[2])
+		os.Exit(1)
+	}
+	fmt.Print(enemies)
+	game = elements.Start(foods)
 }
 
 // Game implements ebiten.Game interface.
@@ -37,13 +54,13 @@ func (g *Game) Draw(screen *ebiten.Image) {
 // Layout takes the outside size (e.g., the window size) and returns the (logical) screen size.
 // If you don't have to adjust the screen size with the outside size, just return a fixed size.
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
-	return 720, 600
+	return 1080, 720
 }
 
 func main() {
 	game := &Game{}
 
-	ebiten.SetWindowSize(720, 600)
+	ebiten.SetWindowSize(1080, 720)
 	ebiten.SetWindowTitle("Snake")
 
 	if err := ebiten.RunGame(game); err != nil {
