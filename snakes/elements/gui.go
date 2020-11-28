@@ -13,14 +13,12 @@ import (
 type GUI struct {
 	score            int
 	remainingEnemies int
-	mainSnakeHealth  int
 }
 
-func initializeGUI() *GUI {
+func initializeGUI(g *Game) *GUI {
 	gui := GUI{
 		score:            0,
-		remainingEnemies: 0,
-		mainSnakeHealth:  0,
+		remainingEnemies: g.enemiesAmount,
 	}
 	return &gui
 }
@@ -29,10 +27,14 @@ func (gui *GUI) ateFood() {
 	gui.score++
 }
 
+func (gui *GUI) enemyDied() {
+	gui.remainingEnemies--
+}
+
 // Draw GUI
 func (gui *GUI) Draw(screen *ebiten.Image) error {
 	text.Draw(screen, "Current Score: "+strconv.Itoa(gui.score), inconsolata.Bold8x16, 90, 20, color.Black)
-	text.Draw(screen, "Remaining Health: "+strconv.Itoa(gui.mainSnakeHealth), inconsolata.Bold8x16, 410, 20, color.Black)
 	text.Draw(screen, "Remaining enemies: "+strconv.Itoa(gui.remainingEnemies), inconsolata.Bold8x16, 780, 20, color.Black)
+	text.Draw(screen, "Art by Juanpy", inconsolata.Bold8x16, 10, 715, color.Black)
 	return nil
 }

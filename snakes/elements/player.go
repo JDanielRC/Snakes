@@ -55,16 +55,16 @@ func (player *Player) Behaviour() error {
 
 //Update will detect player movement accordingly
 func (player *Player) Update(dotTime int) error {
-	if ebiten.IsKeyPressed(ebiten.KeyRight) && player.direction != "right" {
+	if ebiten.IsKeyPressed(ebiten.KeyRight) && player.direction != "right" && player.direction != "left" {
 		player.direction = "right"
 		return nil
-	} else if ebiten.IsKeyPressed(ebiten.KeyLeft) && player.direction != "left" {
+	} else if ebiten.IsKeyPressed(ebiten.KeyLeft) && player.direction != "left" && player.direction != "right" {
 		player.direction = "left"
 		return nil
-	} else if ebiten.IsKeyPressed(ebiten.KeyDown) && player.direction != "down" {
+	} else if ebiten.IsKeyPressed(ebiten.KeyDown) && player.direction != "down" && player.direction != "up" {
 		player.direction = "down"
 		return nil
-	} else if ebiten.IsKeyPressed(ebiten.KeyUp) && player.direction != "up" {
+	} else if ebiten.IsKeyPressed(ebiten.KeyUp) && player.direction != "up" && player.direction != "down" {
 		player.direction = "up"
 		return nil
 	}

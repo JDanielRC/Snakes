@@ -28,7 +28,7 @@ func init() {
 		os.Exit(1)
 	}
 	fmt.Print(enemies)
-	game = elements.Start(foods)
+	game = elements.Start(foods, enemies)
 }
 
 // Game implements ebiten.Game interface.
