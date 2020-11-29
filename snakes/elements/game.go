@@ -145,9 +145,7 @@ func (g *Game) Draw(screen *ebiten.Image) error {
 	}
 
 	if err := g.player.Draw(screen, g.dotTime); err != nil {
-		if g.alive == false {
-			text.Draw(screen, "game over", inconsolata.Bold8x16, 400, 300, color.White)
-		}
+
 		return err
 	}
 	if g.alive == false {

@@ -149,7 +149,7 @@ func (player *Player) turn(x, y float64) {
 }
 
 func (player *Player) updateSnake(x, y float64) {
-	player.parts = append([][]float64{[]float64{x, y}}, player.parts...)
+	player.parts = append([][]float64{{x, y}}, player.parts...)
 	player.parts = player.parts[:player.length+1]
 }
 

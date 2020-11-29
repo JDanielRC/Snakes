@@ -244,7 +244,7 @@ func (enemy *Enemy) turn(x, y float64) {
 }
 
 func (enemy *Enemy) updateEnemy(x, y float64) {
-	enemy.parts = append([][]float64{[]float64{x, y}}, enemy.parts...)
+	enemy.parts = append([][]float64{{x, y}}, enemy.parts...)
 	enemy.parts = enemy.parts[:enemy.length+1]
 }
 
