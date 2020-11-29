@@ -68,7 +68,7 @@ func (enemy *Enemy) Behaviour() error {
 
 // Update enemy snake
 func (enemy *Enemy) Update(dotTime int) error {
-	if enemy.alive {
+	if enemy.alive && enemy.game.alive {
 		if dotTime == 1 {
 			r := rand.New(enemy.seed)
 			changeDirection := r.Intn(5)

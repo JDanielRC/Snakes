@@ -1,10 +1,12 @@
 package elements
 
 import (
-	"fmt"
+	"image/color"
 
 	"github.com/hajimehoshi/ebiten"
 	"github.com/hajimehoshi/ebiten/ebitenutil"
+	"github.com/hajimehoshi/ebiten/text"
+	"golang.org/x/image/font/inconsolata"
 )
 
 // Game contains everything needed for the game
@@ -96,6 +98,8 @@ func (g *Game) Update() error {
 			}
 		}
 
+	} else {
+
 	}
 	for i := 0; i < g.foodAmount; i++ {
 		if err := g.foods[i].Update(g.dotTime); err != nil {
@@ -113,12 +117,12 @@ func (g *Game) enemyDied() {
 
 // GameOver ends the game
 func (g *Game) GameOver() {
-	fmt.Printf("Moriste! \n")
 	g.alive = false
 }
 
 // Draw interface, this follows a hierarchy, so snakes have to go at last, while background would have to be the first
 func (g *Game) Draw(screen *ebiten.Image) error {
+
 	drawer := &ebiten.DrawImageOptions{}
 	drawer.GeoM.Translate(0, 0)
 	background, _, _ := ebitenutil.NewImageFromFile("files/background.png", ebiten.FilterDefault)
@@ -141,7 +145,26 @@ func (g *Game) Draw(screen *ebiten.Image) error {
 	}
 
 	if err := g.player.Draw(screen, g.dotTime); err != nil {
+		if g.alive == false {
+			text.Draw(screen, "game over", inconsolata.Bold8x16, 400, 300, color.White)
+		}
 		return err
+	}
+	if g.alive == false {
+		largest := g.enemies[0]
+		for i := 1; i < len(g.enemies); i++ {
+			if g.enemies[i].length > largest.length {
+				largest = g.enemies[i]
+			}
+		}
+
+		textGameOver := ""
+		if g.player.length > largest.length {
+			textGameOver = "Game over\nYou win. You ate the most food"
+		} else {
+			textGameOver = "Game over\nYou lose. You did not ate the most food :("
+		}
+		text.Draw(screen, textGameOver, inconsolata.Bold8x16, 400, 300, color.White)
 	}
 
 	return nil
