@@ -1,19 +1,25 @@
-# GoSnake
+# Snake
 
-Concurrent Snake Game in go, In this game we have two messages or conditions of winning or losing, We have the collision of snakes on us and therefore the ability to win by killing them all
+The game Snake controls a player in this case a snake whose objective is to collect the food that is on the board, as it collects these objectives it grows, increasing its score. We have enemies that can also collect the objectives, in order to beat player one.
+
+
+We have the same functionality of collision between players that would cause a game over.
+
+Likewise, player one could eliminate the enemy snakes.
+
+The game has conditions to win, being these when collecting all the food that is in the game or eliminating the enemy snakes.
 
 ## Architecture
 **Ebiten library**
 
-According to their [documentation](https://github.com/hajimehoshi/ebiten/): Ebiten is an open source game library for the Go programming language. Ebiten's simple API allows you to quickly and easily develop 2D games that can be deployed across multiple platforms.
+We used a 2D golang library called Ebiten for having easy methods for which we can developed this snake game, like being able to draw images in our screen at certain positions, drawing text in it and multiple 2D tools that can help with game development in golang.
 
 **Ebiten Game Design**
 
-Ebiten library's `ebiten.Game` interface makes game development in go very easy, there are three necessary methods that require implementation:
-* **Update**: This method is where you put the game logic, which will be updated each `Tick` (1/60th of a second).
-* **Draw**: Method to render the images in every frame. 
-* **Layout**: Method that defines the overall game layout.
-
+Ebiten uses a certain interface which works as the main structure in which your games is going to be based, which is Ebiten.Game, this implements three methods, which are:
+* **Update**: All actions that need to occur in your class happen here, like updating your player's position, life, or score.
+* **Draw**: This can render whatever you want into your screen, like image files.
+* **Layout**: Self-explanatory, this defines the layout your game will have.
 
 ### Game Structure
 We organize the project into three main folders and the `main.go` file: 
@@ -22,8 +28,6 @@ We organize the project into three main folders and the `main.go` file:
     * elements/
     * files/
     * main.go
-
-Since Ebiten's engine mostly consists of image and graphics rendering, we need an `assets/` folder. This is where all our image resources for our GUI will be placed.
 
 The `elements/` folder is the most important one, this is where the game logic resides. The main entities needed for the game are:
 * Game [game.go](https://github.com/JDanielRC/Snakes/tree/main/snakes/elements/game.go)
@@ -35,15 +39,14 @@ The `elements/` folder is the most important one, this is where the game logic r
 `game.go` will have all `ebiten.Game` interface methods implemented, in addition to the following functions and methods 
 * **NewGame**: function that instanciates a new game
 * **End**: method to end game.
-* Logic behind cherry eats
+* Logic behind food eats
 
 As we know, we need to implement the `Game` interface. This is done in `main.go` for simplicity reasons, but inside `game.go` we will code the functionality of the structure.
 
-`snake.go` is the main player Snake structure. A snake can do the following:
-* **UpdatePos**. A snake should be able to move in the XY plane. It should have a tick delay so it could move in an arcade-fashion way. Since our types of snakes are "Player" and "Enemy", the former will have input controls by keyboard arrow keys and the latter will have a random moving behavior.
-* **Eat**. A snake should be able to eat a cherry whenever its head collisions with it, triggering its own Grow function
-* **Grow**. A snake should be able to grow its body by 1 unit whenever it eats a cherry. All body parts should form a trail according to the movement.
-* **Die**. A snake should die whenever it collisions with something different than a cherry. (walls, other snake, or its own body)
+When the snake eat adquired size at the end, also the snake can not move in two different directions, only can move to up, down, left, right, using the keyboard.
+We have two differents endings, one is when the snake crash in the limits of the map, or when an enemy attack him. 
+We have a system of point, when a snake eat one food adquired one point also the enemy snakes can take it this point to make the player one lose.
+
 
 
 ### Concurrency
