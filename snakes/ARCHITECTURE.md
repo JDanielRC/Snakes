@@ -50,7 +50,6 @@ In the image below you can see all entities and methods in detail
 
 ![uml](uml.png)
 
-
 ### Concurrency
 
 We will implement a thread-safe version of the game, since ebiten library makes everything happen inside their Update method, we can create channels that can communicate with each snakes including the player.
