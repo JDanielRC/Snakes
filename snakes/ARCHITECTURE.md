@@ -45,9 +45,6 @@ As we know, we need to implement the `Game` interface. This is done in `main.go`
 * **Grow**. A snake should be able to grow its body by 1 unit whenever it eats a cherry. All body parts should form a trail according to the movement.
 * **Die**. A snake should die whenever it collisions with something different than a cherry. (walls, other snake, or its own body)
 
-In the image below you can see all entities and methods in detail
-
-![uml](uml.png)
 
 ### Concurrency
 
