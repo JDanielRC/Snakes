@@ -127,6 +127,9 @@ func (enemy *Enemy) Update(dotTime int) error {
 					enemy.parts[i][1] = -20
 				}
 				enemy.game.enemyDied()
+				if enemy.game.gui.remainingEnemies == 0 {
+					enemy.game.GameOver()
+				}
 			}
 			x2, y2 := enemy.game.player.getHead()
 			if enemy.playerCollision(x2, y2) {

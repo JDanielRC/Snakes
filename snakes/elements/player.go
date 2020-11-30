@@ -55,24 +55,27 @@ func (player *Player) Behaviour() error {
 
 //Update will detect player movement accordingly
 func (player *Player) Update(dotTime int) error {
-	if ebiten.IsKeyPressed(ebiten.KeyRight) && player.direction != "right" && player.direction != "left" {
-		player.direction = "right"
-		return nil
-	} else if ebiten.IsKeyPressed(ebiten.KeyLeft) && player.direction != "left" && player.direction != "right" {
-		player.direction = "left"
-		return nil
-	} else if ebiten.IsKeyPressed(ebiten.KeyDown) && player.direction != "down" && player.direction != "up" {
-		player.direction = "down"
-		return nil
-	} else if ebiten.IsKeyPressed(ebiten.KeyUp) && player.direction != "up" && player.direction != "down" {
-		player.direction = "up"
-		return nil
-	}
+	if player.game.alive {
+		if ebiten.IsKeyPressed(ebiten.KeyRight) && player.direction != "right" && player.direction != "left" {
+			player.direction = "right"
+			return nil
+		} else if ebiten.IsKeyPressed(ebiten.KeyLeft) && player.direction != "left" && player.direction != "right" {
+			player.direction = "left"
+			return nil
+		} else if ebiten.IsKeyPressed(ebiten.KeyDown) && player.direction != "down" && player.direction != "up" {
+			player.direction = "down"
+			return nil
+		} else if ebiten.IsKeyPressed(ebiten.KeyUp) && player.direction != "up" && player.direction != "down" {
+			player.direction = "up"
+			return nil
+		}
 
-	if dotTime == 1 {
-		x, y := player.getHead()
-		if x < 0 || x > 1060 || y < 100 || y > 700 || player.ownCollision() {
-			player.game.GameOver()
+		if dotTime == 1 {
+			x, y := player.getHead()
+			if x < 0 || x > 1060 || y < 120 || y > 700 || player.ownCollision() {
+				player.game.GameOver()
+				player.game.Crashed()
+			}
 		}
 	}
 	return nil

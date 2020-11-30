@@ -1,12 +1,8 @@
 package elements
 
 import (
-	"image/color"
-
 	"github.com/hajimehoshi/ebiten"
 	"github.com/hajimehoshi/ebiten/ebitenutil"
-	"github.com/hajimehoshi/ebiten/text"
-	"golang.org/x/image/font/inconsolata"
 )
 
 // Game contains everything needed for the game
@@ -22,6 +18,7 @@ type Game struct {
 	foodAmount     int
 	dotTime        int
 	alive          bool
+	crashed        bool
 }
 
 // Start will begin all variables needed for the game
@@ -32,6 +29,7 @@ func Start(nFood, nEnemies int) Game {
 		enemiesAmount: nEnemies,
 		dotTime:       0,
 		alive:         true,
+		crashed:       false,
 	}
 	foodArray := make([]*Food, game.foodAmount)
 	for i := 0; i < game.foodAmount; i++ {
@@ -57,11 +55,32 @@ func Start(nFood, nEnemies int) Game {
 	return game
 }
 
+// GameOver ends the game
+func (g *Game) GameOver() {
+	g.alive = false
+}
+
+// Crashed into another snake, himself, or the wall
+func (g *Game) Crashed() {
+	g.crashed = true
+}
+
 // Update proceeds the game state.
 func (g *Game) Update() error {
 	if g.alive {
 		if g.foodAmount == 0 {
-			g.alive = false
+			g.gui.game.alive = false
+			largest := g.enemies[0]
+			for i := 1; i < len(g.enemies); i++ {
+				if g.enemies[i].points > largest.points {
+					largest = g.enemies[i]
+				}
+			}
+			if g.player.points > largest.points {
+				g.gui.largest = true
+			} else {
+				g.gui.largest = false
+			}
 		}
 		g.dotTime = (g.dotTime + 1) % 10 //game speed
 
@@ -98,8 +117,6 @@ func (g *Game) Update() error {
 			}
 		}
 
-	} else {
-
 	}
 	for i := 0; i < g.foodAmount; i++ {
 		if err := g.foods[i].Update(g.dotTime); err != nil {
@@ -115,11 +132,6 @@ func (g *Game) enemyDied() {
 	g.gui.enemyDied()
 }
 
-// GameOver ends the game
-func (g *Game) GameOver() {
-	g.alive = false
-}
-
 // Draw interface, this follows a hierarchy, so snakes have to go at last, while background would have to be the first
 func (g *Game) Draw(screen *ebiten.Image) error {
 
@@ -128,41 +140,22 @@ func (g *Game) Draw(screen *ebiten.Image) error {
 	background, _, _ := ebitenutil.NewImageFromFile("files/background.png", ebiten.FilterDefault)
 	screen.DrawImage(background, drawer)
 
-	if err := g.gui.Draw(screen); err != nil {
-		return err
-	}
-
 	for i := 0; i < len(g.foods); i++ {
 		if err := g.foods[i].Draw(screen, g.dotTime); err != nil {
 			return err
 		}
 	}
-
 	for _, enemy := range g.enemies {
 		if err := enemy.Draw(screen, g.dotTime); err != nil {
 			return err
 		}
 	}
-
 	if err := g.player.Draw(screen, g.dotTime); err != nil {
 
 		return err
 	}
-	if g.alive == false {
-		largest := g.enemies[0]
-		for i := 1; i < len(g.enemies); i++ {
-			if g.enemies[i].length > largest.length {
-				largest = g.enemies[i]
-			}
-		}
-
-		textGameOver := ""
-		if g.player.length > largest.length {
-			textGameOver = "Game over\nYou win. You ate the most food"
-		} else {
-			textGameOver = "Game over\nYou lose. You did not ate the most food :("
-		}
-		text.Draw(screen, textGameOver, inconsolata.Bold8x16, 400, 300, color.White)
+	if err := g.gui.Draw(screen); err != nil {
+		return err
 	}
 
 	return nil
