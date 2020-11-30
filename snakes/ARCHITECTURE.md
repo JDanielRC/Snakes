@@ -20,8 +20,7 @@ We organize the project into three main folders and the `main.go` file:
 
 * root 
     * assets/
-    * entities/
-    * util/
+    * files/
     * main.go
 
 Since Ebiten's engine mostly consists of image and graphics rendering, we need an `assets/` folder. This is where all our image resources for our GUI will be placed.
