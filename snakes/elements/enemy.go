@@ -134,6 +134,7 @@ func (enemy *Enemy) Update(dotTime int) error {
 			x2, y2 := enemy.game.player.getHead()
 			if enemy.playerCollision(x2, y2) {
 				enemy.game.GameOver()
+				enemy.game.Crashed()
 			}
 		}
 	}
