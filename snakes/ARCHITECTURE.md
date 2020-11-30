@@ -1,6 +1,6 @@
 # GoSnake
 
-Concurrent Snake Game in go.
+Concurrent Snake Game in go, In this game we have two messages or conditions of winning or losing, We have the collision of snakes on us and therefore the ability to win by killing them all
 
 ## Architecture
 **Ebiten library**
@@ -19,18 +19,18 @@ Ebiten library's `ebiten.Game` interface makes game development in go very easy,
 We organize the project into three main folders and the `main.go` file: 
 
 * root 
-    * assets/
+    * elements/
     * files/
     * main.go
 
 Since Ebiten's engine mostly consists of image and graphics rendering, we need an `assets/` folder. This is where all our image resources for our GUI will be placed.
 
-The `entities/` folder is the most important one, this is where the game logic resides. The main entities needed for the game are:
-* Game [game.go](https://github.com/DiegoSolorzanoO/GoSnake/blob/master/entities/game.go)
-* Snake [snake.go](https://github.com/DiegoSolorzanoO/GoSnake/blob/master/entities/snake.go)
-* Cherry [cherry.go](https://github.com/DiegoSolorzanoO/GoSnake/blob/master/entities/cherry.go)
-* Enemy (instances of snake) [enemySnake.go](https://github.com/DiegoSolorzanoO/GoSnake/blob/master/entities/enemySnake.go)
-* A Hud [hud.go](https://github.com/DiegoSolorzanoO/GoSnake/blob/master/entities/hud.go)
+The `elements/` folder is the most important one, this is where the game logic resides. The main entities needed for the game are:
+* Game [game.go](https://github.com/JDanielRC/Snakes/tree/main/snakes/elements/game.go)
+* Player [player.go](https://github.com/JDanielRC/Snakes/tree/main/snakes/elementssnake.go)
+* Food [cherry.go](https://github.com/JDanielRC/Snakes/tree/main/snakes/elements/food.go)
+* Enemy (instances of snake) [enemy.go](https://github.com/JDanielRC/Snakes/tree/main/snakes/elements/enemy.go)
+* Gui [gui.go](https://github.com/JDanielRC/Snakes/tree/main/snakes/elements/gui.go)
 
 `game.go` will have all `ebiten.Game` interface methods implemented, in addition to the following functions and methods 
 * **NewGame**: function that instanciates a new game
