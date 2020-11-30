@@ -28,7 +28,7 @@ Since Ebiten's engine mostly consists of image and graphics rendering, we need a
 The `elements/` folder is the most important one, this is where the game logic resides. The main entities needed for the game are:
 * Game [game.go](https://github.com/JDanielRC/Snakes/tree/main/snakes/elements/game.go)
 * Player [player.go](https://github.com/JDanielRC/Snakes/tree/main/snakes/elementssnake.go)
-* Food [cherry.go](https://github.com/JDanielRC/Snakes/tree/main/snakes/elements/food.go)
+* Food [food.go](https://github.com/JDanielRC/Snakes/tree/main/snakes/elements/food.go)
 * Enemy (instances of snake) [enemy.go](https://github.com/JDanielRC/Snakes/tree/main/snakes/elements/enemy.go)
 * Gui [gui.go](https://github.com/JDanielRC/Snakes/tree/main/snakes/elements/gui.go)
 
