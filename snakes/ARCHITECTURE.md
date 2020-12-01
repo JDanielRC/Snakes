@@ -46,6 +46,8 @@ We separeted our files to mimic the elements of the game. `player.go` contains a
 
 * Also the collision with enemy snakes and the boundries of the game are check here, and if the main snake touches any of these, it will be Game Over
 
+![flow](flow.png)
+
 Similar approaches where made to the following files:
 
 * `food.go` contains all the functionality of the food tiles, it takes the CLI arguments in order to produce that quantity of food tiles in random x axis and random y axis. and also select which of the 3 images will show.
